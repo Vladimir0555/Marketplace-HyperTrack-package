@@ -1,22 +1,22 @@
 {
-  "package": "StatSocial",
-  "tagline": "StatSocial Analytical Platform",
-  "description": "Understand and target your social audience.",
-  "image": "https://logo.clearbit.com/statsocial.com?s=128",
-  "repo": "https://github.com/RapidSoftwareSolutions/Marketplace-StatSocial-package",
+  "package": "HyperTrack",
+  "tagline": "Location traking as a service",
+  "description": "HyperTrack lets you build location features, without worrying about infrastructure.",
+  "image": "https://logo.clearbit.com/hypertrack.io?s=128",
+  "repo": "https://github.com/RapidSoftwareSolutions/Marketplace-HyperTrack-package",
   "keywords": [
-    "API"
+    "API", "traking", "HyperTrack"
   ],
   "accounts": {
-    "domain": "statsocial.com",
+    "domain": "hypertrack.io",
     "credentials": [
-      "apiKey"
+      "APIkey"
     ]
   },
   "blocks": [
     {
-      "name": "getReports",
-      "description": "Output is ordered by Demographic and followed by Affinity information. For each data point the following metrics are provided value, count, mean, percentile, multiplicity and average. For Geographic, and Demographic data points an additional statistical_info metric will be present with information regarding statistical relevance.",
+      "name": "createDriver",
+      "description": "Create and return a Driver object.",
       "args": [
         {
           "name": "apiKey",
@@ -25,27 +25,605 @@
           "required": true
         },
         {
-          "name": "reportHash",
+          "name": "vehicleType",
           "type": "String",
-          "info": "Unique report hash.",
+          "info": "The default vehicle type of the driver. Must be one of 'walking, bicycle, motorcycle, car, 3-wheeler, van, flight, train, ship'.",
           "required": true
         },
         {
-          "name": "baseline",
+          "name": "name",
+          "type": "String",
+          "info": "Name of the driver.",
+          "required": false
+        },
+        {
+          "name": "phone",
+          "type": "String",
+          "info": "E164 formatted phone number of the driver.",
+          "required": false
+        },
+        {
+          "name": "photo",
+          "type": "File",
+          "info": "A photo file of the driver.",
+          "required": false
+        },
+        {
+          "name": "lookupId",
+          "type": "String",
+          "info": "A unique id that you can add to the driver to search.",
+          "required": false
+        },
+        {
+          "name": "fleetId",
+          "type": "String",
+          "info": "The identifier of the fleet to which the driver belongs.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getSingleDriver",
+      "description": "Retrieves a driver object with the id.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "driverId",
+          "type": "String",
+          "info": "Valid driver identifier",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "updateDriver",
+      "description": "Edit an existing driver object.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "driverId",
+          "type": "String",
+          "info": "Valid driver identifier.",
+          "required": true
+        },
+        {
+          "name": "vehicleType",
+          "type": "String",
+          "info": "The default vehicle type of the driver. Must be one of 'walking, bicycle, motorcycle, car, 3-wheeler, van, flight, train, ship'.",
+          "required": false
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Name of the driver.",
+          "required": false
+        },
+        {
+          "name": "phone",
+          "type": "String",
+          "info": "E164 formatted phone number of the driver.",
+          "required": false
+        },
+        {
+          "name": "photo",
+          "type": "File",
+          "info": "A photo file of the driver.",
+          "required": false
+        },
+        {
+          "name": "lookupId",
+          "type": "String",
+          "info": "A unique id that you can add to the driver to search",
+          "required": false
+        },
+        {
+          "name": "fleetId",
+          "type": "String",
+          "info": "The identifier of the fleet to which the driver belongs.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteDriver",
+      "description": "Delete an existing customer object.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "driverId",
+          "type": "String",
+          "info": "Valid driver identifier",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getDrivers",
+      "description": "List all driver objects. The list can be filtered using the following parameters.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "pageSize",
           "type": "Number",
-          "info": "Default value will be 'world'.",
+          "info": "Maximum number of objects to return, default is 50.",
           "required": false
         },
         {
-          "name": "reportDate",
+          "name": "name",
+          "type": "String",
+          "info": "Filter drivers with names that contain this string.",
+          "required": false
+        },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "Filter drivers with a comma separated list of ids.",
+          "required": false
+        },
+        {
+          "name": "fleetId",
+          "type": "String",
+          "info": "Filter driver objects by fleet.",
+          "required": false
+        },
+        {
+          "name": "bbox",
+          "type": "String",
+          "info": "Filter driver objects by bounding box, specified as max_lng,max_lat,min_lng,min_lat.",
+          "required": false
+        },
+        {
+          "name": "minDate",
+          "type": "String",
+          "info": "Filter objects by minimum created at date.",
+          "required": false
+        },
+        {
+          "name": "maxDate",
+          "type": "String",
+          "info": "Filter objects by maximum created at date.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getDrivers",
+      "description": "Retrieves the overview of an existing driver's performance. Supply the unique identifier that was returned on driver creation.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "minDate",
+          "type": "String",
+          "info": "Minimum date as ISO datetime string to get statistics for a driver.",
+          "required": false
+        },
+        {
+          "name": "maxDate",
+          "type": "String",
+          "info": "Maximum date as ISO datetime string to get statistics for a driver.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getDriversLocations",
+      "description": "Returns a minimal list of your drivers with location to display on a map.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "minDate",
+          "type": "String",
+          "info": "Minimum created date as ISO datetime string to filter drivers.",
+          "required": false
+        },
+        {
+          "name": "maxDate",
+          "type": "String",
+          "info": "Maximum created date as ISO datetime string to filter drivers.",
+          "required": false
+        },
+        {
+          "name": "fleetId",
+          "type": "String",
+          "info": "Filter only drivers of a particular fleet.",
+          "required": false
+        },
+        {
+          "name": "pageSize",
           "type": "Number",
-          "info": "represents a Unix timestamp of when the report was generated. Default value will be the latest report generated. Date must be in the future.",
+          "info": "The number of entries to return in a page (maximum of 200).",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "assignTaskToDriver",
+      "description": "This API will assign a list of Tasks to a Driver. We recommend using this after you have created tasks and want to start tracking them. If driver is on a Trip when the call is made, we add these tasks to the currently running Trip, else we create a new Trip and start tracking it for you. When all tasks are marked completed, we end the Trip and stop tracking.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "driverId",
+          "type": "String",
+          "info": "Valid driver identifier",
+          "required": true
+        },
+        {
+          "name": "taskIds",
+          "type": "String",
+          "info": "List of task ids to be assigned to the driver.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "endTripForDriver",
+      "description": "This API will end the live trip for a Driver.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "driverId",
+          "type": "String",
+          "info": "Valid driver identifier",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "endShiftForDriver",
+      "description": "This API will end the live shift for a Driver.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "driverId",
+          "type": "String",
+          "info": "Valid driver identifier",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createTrip",
+      "description": "Creates a new trip object. By default, it also starts the trip.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "driverId",
+          "type": "String",
+          "info": "The id of the driver who will be on trip. If not specified, a new driver will be created for the purpose of the trip.",
           "required": false
         },
         {
-          "name": "sample",
+          "name": "startLocation",
+          "type": "String",
+          "info": "The start location of the trip.",
+          "required": false
+        },
+        {
+          "name": "tasks",
+          "type": "Array",
+          "info": "The array of task ids to be performed on the trip, in format [\"b2249ba8-e88c-455e-b02f-672677828ddc\"].",
+          "required": false
+        },
+        {
+          "name": "vehicleType",
+          "type": "String",
+          "info": "The vehicle type to be used in the trip. If not specified, this defaults to vehicle type of driver. Possible types are walking, bicycle, motorcycle, car, 3-wheeler, van.",
+          "required": false
+        },
+        {
+          "name": "hasOrderedTasks",
+          "type": "Boolean",
+          "info": "Set true to indicate the tasks have a pre-defined sequence as specified in tasks. Default is false.",
+          "required": false
+        },
+        {
+          "name": "isAutoEnded",
+          "type": "Boolean",
+          "info": "Set false if the trip should not end after the last task is completed. Default is true, and the trip ends after the last task is completed.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "endTrip",
+      "description": "Ends a live trip by trip id.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "tripId",
+          "type": "String",
+          "info": "Valid trip identifier.",
+          "required": true
+        },
+        {
+          "name": "endLocation",
+          "type": "String",
+          "info": "Location where the trip ends.",
+          "required": false
+        },
+        {
+          "name": "endTime",
+          "type": "String",
+          "info": "Time at which the trip ends, defaults to current time.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getSingleTrip",
+      "description": "Retrieves a trip object with the id.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "tripId",
+          "type": "String",
+          "info": "Valid trip identifier.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteTrip",
+      "description": "Delete an existing trip object.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "tripId",
+          "type": "String",
+          "info": "Valid trip identifier.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getTrips",
+      "description": "List all trip objects. The list can be filtered using the following parameters.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "pageSize",
           "type": "Number",
-          "info": "Sample report indicator.",
+          "info": "Maximum number of objects to return, default is 50.",
+          "required": false
+        },
+        {
+          "name": "driverId",
+          "type": "String",
+          "info": "Filter trips for a particular driver id.",
+          "required": false
+        },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "Filter trips with a comma separated list of ids.",
+          "required": false
+        },
+        {
+          "name": "status",
+          "type": "String",
+          "info": "Filter trips for a particular status, can be one of live, ended, suspended.",
+          "required": false
+        },
+        {
+          "name": "minDate",
+          "type": "String",
+          "info": "Filter objects by minimum created at date.",
+          "required": false
+        },
+        {
+          "name": "maxDate",
+          "type": "String",
+          "info": "Filter objects by maximum created at date.",
           "required": false
         }
       ],
@@ -61,8 +639,8 @@
       ]
     },
     {
-      "name": "getSpecificReportDates",
-      "description": "Get report dates available for a specific report.",
+      "name": "addTaskToTrip",
+      "description": "This API lets you add Tasks to a live Trip. Only tasks that have not been completed can be added to a Trip.",
       "args": [
         {
           "name": "apiKey",
@@ -71,9 +649,15 @@
           "required": true
         },
         {
-          "name": "reportHash",
+          "name": "tripId",
           "type": "String",
-          "info": "Unique report hash.",
+          "info": "Valid trip identifier.",
+          "required": true
+        },
+        {
+          "name": "taskId",
+          "type": "String",
+          "info": "The id of the task to be added.",
           "required": true
         }
       ],
@@ -89,8 +673,8 @@
       ]
     },
     {
-      "name": "getReportStatus",
-      "description": "Returns a list of custom reports generated by user (report name to upload hash etc).",
+      "name": "removeTaskFromTrip",
+      "description": "This API lets you remove Tasks to a live Trip. Only tasks that are on the Trip and have not been completed can be removed.",
       "args": [
         {
           "name": "apiKey",
@@ -99,9 +683,15 @@
           "required": true
         },
         {
-          "name": "reportHash",
+          "name": "tripId",
           "type": "String",
-          "info": "Unique hash belonging to report.",
+          "info": "Valid trip identifier.",
+          "required": true
+        },
+        {
+          "name": "taskId",
+          "type": "String",
+          "info": "The id of the task to be added.",
           "required": true
         }
       ],
@@ -117,8 +707,8 @@
       ]
     },
     {
-      "name": "createTwitterFollowerReport",
-      "description": "This report uses the twitter followers as the audience. To create custom or tweet reports other methods must be used. Any report older than two days will be automatically regenerated upon create.",
+      "name": "changeTripTasksSequence",
+      "description": "This API lets you reorder Tasks of a live Trip. This can only be done for Trips that have has_ordered_tasks as true.",
       "args": [
         {
           "name": "apiKey",
@@ -127,227 +717,15 @@
           "required": true
         },
         {
-          "name": "twitterId",
+          "name": "tripId",
           "type": "String",
-          "info": "(required if twitter_handle is not supplied) twitter_id must be sent with all client requests. Multiple handles are separated by commas.",
-          "required": false
+          "info": "Valid trip identifier.",
+          "required": true
         },
         {
-          "name": "twitterHandle",
-          "type": "String",
-          "info": "(required if twitter_id is not supplied) twitter_handle must be sent with all client requests. Multiple ids are separated by commas.",
-          "required": false
-        },
-        {
-          "name": "genderFilter",
+          "name": "taskOrder",
           "type": "Array",
-          "info": "Filtering by gender options to be used when creating a filtered report. Format [\"male\"].",
-          "required": false
-        },
-        {
-          "name": "agesFilter",
-          "type": "Array",
-          "info": "Filtering by ages options to be used when creating a filtered report. Format [\"18-24\"].",
-          "required": false
-        },
-        {
-          "name": "countriesFilter",
-          "type": "Array",
-          "info": "Filtering by countries options to be used when creating a filtered report. Format [\"usa\"].",
-          "required": false
-        }
-      ],
-      "callbacks": [
-        {
-          "name": "error",
-          "info": "Error"
-        },
-        {
-          "name": "success",
-          "info": "Success"
-        }
-      ]
-    },
-    {
-      "name": "generateCustomReport",
-      "description": "Used to create a custom report. This report treats the list of ids or handles as the audience (not their followers as in the twitter report). To create follower or tweet reports other methods must be used.",
-      "args": [
-        {
-          "name": "apiKey",
-          "type": "credentials",
-          "info": "API key.",
-          "required": true
-        },
-        {
-          "name": "reportName",
-          "type": "String",
-          "info": "Name of report.",
-          "required": true
-        }
-      ],
-      "callbacks": [
-        {
-          "name": "error",
-          "info": "Error"
-        },
-        {
-          "name": "success",
-          "info": "Success"
-        }
-      ]
-    },
-    {
-      "name": "insertCustomReport",
-      "description": "Inserting twitter ids or handles into a custom report. This is used for custom reports only.",
-      "args": [
-        {
-          "name": "apiKey",
-          "type": "credentials",
-          "info": "API key.",
-          "required": true
-        },
-        {
-          "name": "uploadHash",
-          "type": "String",
-          "info": "Upload hash to be used for inserting handles.",
-          "required": true
-        },
-        {
-          "name": "ids",
-          "type": "String",
-          "info": "List of twitter ids, separated by commas, to be inserted into report. Ids must be enclosed with brackets ie. [177490485] or [177490485,23423434].",
-          "required": true
-        }
-      ],
-      "callbacks": [
-        {
-          "name": "error",
-          "info": "Error"
-        },
-        {
-          "name": "success",
-          "info": "Success"
-        }
-      ]
-    },
-    {
-      "name": "createCustomReport",
-      "description": "Used to create a custom report. This report treats the list of ids or handles as the audience (not their followers as in the twitter report). To create follower or tweet reports other methods must be used.",
-      "args": [
-        {
-          "name": "apiKey",
-          "type": "credentials",
-          "info": "API key.",
-          "required": true
-        },
-        {
-          "name": "uploadHash",
-          "type": "String",
-          "info": "Name of report.",
-          "required": true
-        },
-        {
-          "name": "genderFilter",
-          "type": "Array",
-          "info": "Filtering by gender options to be used when creating a filtered report. Format [\"male\"].",
-          "required": false
-        },
-        {
-          "name": "agesFilter",
-          "type": "Array",
-          "info": "Filtering by ages options to be used when creating a filtered report. Format [\"18-24\"].",
-          "required": false
-        },
-        {
-          "name": "countriesFilter",
-          "type": "Array",
-          "info": "Filtering by countries options to be used when creating a filtered report. Format [\"usa\"].",
-          "required": false
-        }
-      ],
-      "callbacks": [
-        {
-          "name": "error",
-          "info": "Error"
-        },
-        {
-          "name": "success",
-          "info": "Success"
-        }
-      ]
-    },
-    {
-      "name": "createTweetReport",
-      "description": "This report details the audience of the users who have tweeted content that matches what was provided in the keywords. To create custom or twitter reports other methods must be used.",
-      "args": [
-        {
-          "name": "apiKey",
-          "type": "credentials",
-          "info": "API key.",
-          "required": true
-        },
-        {
-          "name": "reportName",
-          "type": "String",
-          "info": "Name of report.",
-          "required": true
-        },
-        {
-          "name": "startDate",
-          "type": "String",
-          "info": "A unix timestamp. start_date will be set to the previous midnight.",
-          "required": true
-        },
-        {
-          "name": "endDate",
-          "type": "String",
-          "info": "A unix timestamp. start_date will be set to the previous midnight.",
-          "required": true
-        },
-        {
-          "name": "terms",
-          "type": "String",
-          "info": "String or Array of JSON Objects. If you are tracking a single term, then the keyword itself is suffice otherwise, tracking multiple terms must be in JSON form. Which results in filtering tweets containing 'http://google.com' OR '#test' AND 'test2'. (NOTE) Make sure to URL encode the terms value for multiple terms.",
-          "required": true
-        },
-        {
-          "name": "genderFilter",
-          "type": "Array",
-          "info": "Filtering by gender options to be used when creating a filtered report. Format [\"male\"].",
-          "required": false
-        },
-        {
-          "name": "agesFilter",
-          "type": "Array",
-          "info": "Filtering by ages options to be used when creating a filtered report. Format [\"18-24\"].",
-          "required": false
-        },
-        {
-          "name": "countriesFilter",
-          "type": "Array",
-          "info": "Filtering by countries options to be used when creating a filtered report. Format [\"usa\"].",
-          "required": false
-        }
-      ],
-      "callbacks": [
-        {
-          "name": "error",
-          "info": "Error"
-        },
-        {
-          "name": "success",
-          "info": "Success"
-        }
-      ]
-    },
-    {
-      "name": "getApplicationStatus",
-      "description": "Remaining window and remaining count details, also returns reports that have been generated by this account.",
-      "args": [
-        {
-          "name": "apiKey",
-          "type": "credentials",
-          "info": "API key.",
+          "info": "Array of task ids in the new sequence. Must have all ids of tasks on the trip, in format [\"3a36b6df-a7e7-40d0-86b7-b5aae1ce3a2b\", \"77b9a3fa-a3ab-4840-aadb-cd33442ca45b\"]",
           "required": true
         }
       ],
