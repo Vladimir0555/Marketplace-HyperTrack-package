@@ -739,6 +739,478 @@
           "info": "Success"
         }
       ]
+    },
+    {
+      "name": "createTask",
+      "description": "Creates a new task object.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "destinationId",
+          "type": "String",
+          "info": "The id of the destination where the task will be performed.",
+          "required": false
+        },
+        {
+          "name": "action",
+          "type": "String",
+          "info": "The action of the task, possible values are pickup, delivery, visit or task. Defaults to task.",
+          "required": false
+        },
+        {
+          "name": "orderId",
+          "type": "String",
+          "info": "An id that you can specify based on your internal ids.",
+          "required": false
+        },
+        {
+          "name": "committedEta",
+          "type": "String",
+          "info": "The eta commitment made to the customer to measure on-time performance, in format \"2000-01-01T12:00:00.00Z\".",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createTaskWithNewDestination",
+      "description": "Creates a new task object with creating new destination.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "customerId",
+          "type": "String",
+          "info": "The id of the customer to which this destination belongs.",
+          "required": false
+        },
+        {
+          "name": "address",
+          "type": "String",
+          "info": "Street address of the destination.",
+          "required": false
+        },
+        {
+          "name": "landmark",
+          "type": "String",
+          "info": "Landmark near destination.",
+          "required": false
+        },
+        {
+          "name": "zipCode",
+          "type": "String",
+          "info": "Zip or postal code of the destination.",
+          "required": false
+        },
+        {
+          "name": "city",
+          "type": "String",
+          "info": "City of the destination.",
+          "required": false
+        },
+        {
+          "name": "state",
+          "type": "String",
+          "info": "State of the destination.",
+          "required": false
+        },
+        {
+          "name": "country",
+          "type": "String",
+          "info": "Country of the destination.",
+          "required": false
+        },
+        {
+          "name": "locationLatitude",
+          "type": "String",
+          "info": "Location latitude of the destination.",
+          "required": false
+        },
+        {
+          "name": "locationLongitude",
+          "type": "String",
+          "info": "Location longitude of the destination.",
+          "required": false
+        },
+        {
+          "name": "action",
+          "type": "String",
+          "info": "The action of the task, possible values are pickup, delivery, visit or task. Defaults to task.",
+          "required": false
+        },
+        {
+          "name": "orderId",
+          "type": "String",
+          "info": "An id that you can specify based on your internal ids.",
+          "required": false
+        },
+        {
+          "name": "committedEta",
+          "type": "String",
+          "info": "The eta commitment made to the customer to measure on-time performance, in format \"2000-01-01T12:00:00.00Z\".",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "completeTask",
+      "description": "Completes a Task.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "taskId",
+          "type": "String",
+          "info": "Valid task identifier.",
+          "required": true
+        },
+        {
+          "name": "completionTime",
+          "type": "Number",
+          "info": "Timestamp when task is completed, default to current time.",
+          "required": false
+        },
+        {
+          "name": "completionLocation",
+          "type": "String",
+          "info": "Location at which task is completed.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "cancelTask",
+      "description": "Cancels a Task. Canceled tasks cannot be restarted, removed or completed.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "taskId",
+          "type": "String",
+          "info": "Valid task identifier.",
+          "required": true
+        },
+        {
+          "name": "cancelationTime",
+          "type": "Number",
+          "info": "Timestamp when task is canceled, default to current time.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getSingleTask",
+      "description": "Retrieves a task object with the id.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "taskId",
+          "type": "String",
+          "info": "Valid task identifier.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "updateDestinationLocation",
+      "description": "Edit an existing destination object.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "destinationId",
+          "type": "String",
+          "info": "Valid destination identifier.",
+          "required": true
+        },
+        {
+          "name": "customerId",
+          "type": "String",
+          "info": "The id of the customer to which this destination belongs.",
+          "required": false
+        },
+        {
+          "name": "address",
+          "type": "String",
+          "info": "Street address of the destination.",
+          "required": false
+        },
+        {
+          "name": "landmark",
+          "type": "String",
+          "info": "Landmark near destination.",
+          "required": false
+        },
+        {
+          "name": "zipCode",
+          "type": "String",
+          "info": "Zip or postal code of the destination.",
+          "required": false
+        },
+        {
+          "name": "city",
+          "type": "String",
+          "info": "City of the destination.",
+          "required": false
+        },
+        {
+          "name": "state",
+          "type": "String",
+          "info": "State of the destination.",
+          "required": false
+        },
+        {
+          "name": "country",
+          "type": "String",
+          "info": "Country of the destination.",
+          "required": false
+        },
+        {
+          "name": "locationLatitude",
+          "type": "String",
+          "info": "Location latitude of the destination.",
+          "required": false
+        },
+        {
+          "name": "locationLongitude",
+          "type": "String",
+          "info": "Location longitude of the destination.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getTasks",
+      "description": "List all tasks objects. The list can be filtered using the following parameters.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "pageSize",
+          "type": "Number",
+          "info": "Maximum number of objects to return, default is 50.",
+          "required": false
+        },
+        {
+          "name": "driverId",
+          "type": "String",
+          "info": "Filter tasks that are assigned to a driver.",
+          "required": false
+        },
+        {
+          "name": "orderId",
+          "type": "String",
+          "info": "Filter tasks by order id.",
+          "required": false
+        },
+        {
+          "name": "minDate",
+          "type": "String",
+          "info": "Filter objects by minimum created at date.",
+          "required": false
+        },
+        {
+          "name": "maxDate",
+          "type": "String",
+          "info": "Filter objects by maximum created at date.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteTask",
+      "description": "Delete an existing task object.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "taskId",
+          "type": "String",
+          "info": "Valid task identifier",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createShift",
+      "description": "Creates a new shift object.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "driverId",
+          "type": "String",
+          "info": "The id of the driver on shift.",
+          "required": true
+        },
+        {
+          "name": "startLocation",
+          "type": "String",
+          "info": "Start location of the shift.",
+          "required": false
+        },
+        {
+          "name": "startedAt",
+          "type": "String",
+          "info": "Start time of the shift, default is current time.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getSingleShift",
+      "description": "Retrieves a shift object with the id.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "shiftId",
+          "type": "String",
+          "info": "Valid shift identifier",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
     }
   ]
 }
