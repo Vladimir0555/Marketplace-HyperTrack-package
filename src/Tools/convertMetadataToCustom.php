@@ -64,4 +64,4 @@ foreach($array['blocks'] as $block){
     $custom[$block['name']]['method'] = 'POST';
 }
 $custom = var_export($custom, true);
-file_put_contents('custom.php', '<?php ' . "\n" . 'return ' . $custom . ';');
+file_put_contents($outputDir . 'custom.php', '<?php ' . "\n" . 'return ' . $custom . ';');
