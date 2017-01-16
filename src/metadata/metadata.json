@@ -85,7 +85,7 @@
         {
           "name": "driverId",
           "type": "String",
-          "info": "Valid driver identifier",
+          "info": "Valid driver identifier.",
           "required": true
         }
       ],
@@ -143,7 +143,7 @@
         {
           "name": "lookupId",
           "type": "String",
-          "info": "A unique id that you can add to the driver to search",
+          "info": "A unique id that you can add to the driver to search.",
           "required": false
         },
         {
@@ -177,7 +177,7 @@
         {
           "name": "driverId",
           "type": "String",
-          "info": "Valid driver identifier",
+          "info": "Valid driver identifier.",
           "required": true
         }
       ],
@@ -229,7 +229,7 @@
         {
           "name": "bbox",
           "type": "String",
-          "info": "Filter driver objects by bounding box, specified as max_lng,max_lat,min_lng,min_lat.",
+          "info": "Filter driver objects by bounding box, specified as max_lng, max_lat, min_lng, min_lat.",
           "required": false
         },
         {
@@ -257,7 +257,7 @@
       ]
     },
     {
-      "name": "getDrivers",
+      "name": "getDriverOverview",
       "description": "Retrieves the overview of an existing driver's performance. Supply the unique identifier that was returned on driver creation.",
       "args": [
         {
@@ -301,18 +301,6 @@
           "required": true
         },
         {
-          "name": "minDate",
-          "type": "String",
-          "info": "Minimum created date as ISO datetime string to filter drivers.",
-          "required": false
-        },
-        {
-          "name": "maxDate",
-          "type": "String",
-          "info": "Maximum created date as ISO datetime string to filter drivers.",
-          "required": false
-        },
-        {
           "name": "fleetId",
           "type": "String",
           "info": "Filter only drivers of a particular fleet.",
@@ -322,6 +310,18 @@
           "name": "pageSize",
           "type": "Number",
           "info": "The number of entries to return in a page (maximum of 200).",
+          "required": false
+        },
+        {
+          "name": "minDate",
+          "type": "String",
+          "info": "Minimum created date as ISO datetime string to filter drivers.",
+          "required": false
+        },
+        {
+          "name": "maxDate",
+          "type": "String",
+          "info": "Maximum created date as ISO datetime string to filter drivers.",
           "required": false
         }
       ],
@@ -338,7 +338,7 @@
     },
     {
       "name": "assignTaskToDriver",
-      "description": "This API will assign a list of Tasks to a Driver. We recommend using this after you have created tasks and want to start tracking them. If driver is on a Trip when the call is made, we add these tasks to the currently running Trip, else we create a new Trip and start tracking it for you. When all tasks are marked completed, we end the Trip and stop tracking.",
+      "description": "This API will assign a Task to a Driver. We recommend using this after you have created tasks and want to start tracking them. If driver is on a Trip when the call is made, we add these task to the currently running Trip, else we create a new Trip and start tracking it for you. When all tasks are marked completed, we end the Trip and stop tracking.",
       "args": [
         {
           "name": "apiKey",
@@ -353,9 +353,9 @@
           "required": true
         },
         {
-          "name": "taskIds",
+          "name": "taskId",
           "type": "String",
-          "info": "List of task ids to be assigned to the driver.",
+          "info": "Task id to be assigned to the driver.",
           "required": true
         }
       ],
@@ -383,7 +383,7 @@
         {
           "name": "driverId",
           "type": "String",
-          "info": "Valid driver identifier",
+          "info": "Valid driver identifier.",
           "required": true
         }
       ],
@@ -411,7 +411,7 @@
         {
           "name": "driverId",
           "type": "String",
-          "info": "Valid driver identifier",
+          "info": "Valid driver identifier.",
           "required": true
         }
       ],
@@ -691,7 +691,7 @@
         {
           "name": "taskId",
           "type": "String",
-          "info": "The id of the task to be added.",
+          "info": "The id of the task to be removed.",
           "required": true
         }
       ],
@@ -898,7 +898,7 @@
         },
         {
           "name": "completionTime",
-          "type": "Number",
+          "type": "String",
           "info": "Timestamp when task is completed, default to current time.",
           "required": false
         },
@@ -938,7 +938,7 @@
         },
         {
           "name": "cancelationTime",
-          "type": "Number",
+          "type": "String",
           "info": "Timestamp when task is canceled, default to current time.",
           "required": false
         }
@@ -984,7 +984,7 @@
     },
     {
       "name": "updateDestinationLocation",
-      "description": "Edit an existing destination object.",
+      "description": "Updates the location of the destination of the task.",
       "args": [
         {
           "name": "apiKey",
@@ -993,64 +993,22 @@
           "required": true
         },
         {
-          "name": "destinationId",
+          "name": "taskId",
           "type": "String",
-          "info": "Valid destination identifier.",
+          "info": "Valid task identifier.",
           "required": true
-        },
-        {
-          "name": "customerId",
-          "type": "String",
-          "info": "The id of the customer to which this destination belongs.",
-          "required": false
-        },
-        {
-          "name": "address",
-          "type": "String",
-          "info": "Street address of the destination.",
-          "required": false
-        },
-        {
-          "name": "landmark",
-          "type": "String",
-          "info": "Landmark near destination.",
-          "required": false
-        },
-        {
-          "name": "zipCode",
-          "type": "String",
-          "info": "Zip or postal code of the destination.",
-          "required": false
-        },
-        {
-          "name": "city",
-          "type": "String",
-          "info": "City of the destination.",
-          "required": false
-        },
-        {
-          "name": "state",
-          "type": "String",
-          "info": "State of the destination.",
-          "required": false
-        },
-        {
-          "name": "country",
-          "type": "String",
-          "info": "Country of the destination.",
-          "required": false
         },
         {
           "name": "locationLatitude",
           "type": "String",
-          "info": "Location latitude of the destination.",
-          "required": false
+          "info": "Location latitude of the new destination.",
+          "required": true
         },
         {
           "name": "locationLongitude",
           "type": "String",
-          "info": "Location longitude of the destination.",
-          "required": false
+          "info": "Location longitude of the new destination.",
+          "required": true
         }
       ],
       "callbacks": [
@@ -1129,7 +1087,7 @@
         {
           "name": "taskId",
           "type": "String",
-          "info": "Valid task identifier",
+          "info": "Valid task identifier.",
           "required": true
         }
       ],
@@ -1197,7 +1155,1057 @@
         {
           "name": "shiftId",
           "type": "String",
+          "info": "Valid shift identifier.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "endShift",
+      "description": "Ends a shift object with the id.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "shiftId",
+          "type": "String",
           "info": "Valid shift identifier",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteShift",
+      "description": "Delete an existing shift object.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "shiftId",
+          "type": "String",
+          "info": "Valid shift identifier",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getShifts",
+      "description": "List all shift objects. The list can be filtered using the following parameters.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "pageSize",
+          "type": "Number",
+          "info": "Maximum number of objects to return, default is 50.",
+          "required": false
+        },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "Filter shifts with a comma separated list of ids.",
+          "required": false
+        },
+        {
+          "name": "driverId",
+          "type": "String",
+          "info": "Filter shift objects for a particular driver.",
+          "required": false
+        },
+        {
+          "name": "isActive",
+          "type": "Boolean",
+          "info": "Filter only active or inactive shifts.",
+          "required": false
+        },
+        {
+          "name": "minDate",
+          "type": "String",
+          "info": "Filter objects by minimum created at date.",
+          "required": false
+        },
+        {
+          "name": "maxDate",
+          "type": "String",
+          "info": "Filter objects by maximum created at date.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createDestination",
+      "description": "Creates a new destination object.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "customerId",
+          "type": "String",
+          "info": "The id of the customer to which this destination belongs.",
+          "required": false
+        },
+        {
+          "name": "address",
+          "type": "String",
+          "info": "Street address of the destination.",
+          "required": false
+        },
+        {
+          "name": "landmark",
+          "type": "String",
+          "info": "Landmark near destination.",
+          "required": false
+        },
+        {
+          "name": "zipCode",
+          "type": "String",
+          "info": "Zip or postal code of the destination.",
+          "required": false
+        },
+        {
+          "name": "city",
+          "type": "String",
+          "info": "City of the destination.",
+          "required": false
+        },
+        {
+          "name": "state",
+          "type": "String",
+          "info": "State of the destination.",
+          "required": false
+        },
+        {
+          "name": "country",
+          "type": "String",
+          "info": "Country of the destination.",
+          "required": false
+        },
+        {
+          "name": "locationLatitude",
+          "type": "String",
+          "info": "Location latitude of the destination.",
+          "required": false
+        },
+        {
+          "name": "locationLongitude",
+          "type": "String",
+          "info": "Location longitude of the destination.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getSingleDestination",
+      "description": "Retrieves the details of an existing destination.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "destinationId",
+          "type": "String",
+          "info": "Valid destination identifier.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "updateDestination",
+      "description": "Edit an existing destination object.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "customerId",
+          "type": "String",
+          "info": "The id of the customer to which this destination belongs.",
+          "required": false
+        },
+        {
+          "name": "address",
+          "type": "String",
+          "info": "Street address of the destination.",
+          "required": false
+        },
+        {
+          "name": "landmark",
+          "type": "String",
+          "info": "Landmark near destination.",
+          "required": false
+        },
+        {
+          "name": "zipCode",
+          "type": "String",
+          "info": "Zip or postal code of the destination.",
+          "required": false
+        },
+        {
+          "name": "city",
+          "type": "String",
+          "info": "City of the destination.",
+          "required": false
+        },
+        {
+          "name": "state",
+          "type": "String",
+          "info": "State of the destination.",
+          "required": false
+        },
+        {
+          "name": "country",
+          "type": "String",
+          "info": "Country of the destination.",
+          "required": false
+        },
+        {
+          "name": "locationLatitude",
+          "type": "String",
+          "info": "Location latitude of the destination.",
+          "required": false
+        },
+        {
+          "name": "locationLongitude",
+          "type": "String",
+          "info": "Location longitude of the destination.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteDestination",
+      "description": "Delete an existing destination object.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "destinationId",
+          "type": "String",
+          "info": "Valid destination identifier.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getDestinations",
+      "description": "Returns a list of your destinations. The destinations are returned sorted by updated date, with the most recently updated destinations appearing first.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "pageSize",
+          "type": "Number",
+          "info": "Maximum number of objects to return, default is 50.",
+          "required": false
+        },
+        {
+          "name": "customerId",
+          "type": "String",
+          "info": "Filter destination objects by customer.",
+          "required": false
+        },
+        {
+          "name": "minDate",
+          "type": "String",
+          "info": "Filter objects by minimum created at date.",
+          "required": false
+        },
+        {
+          "name": "maxDate",
+          "type": "String",
+          "info": "Filter objects by maximum created at date.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createCustomer",
+      "description": "Creates a new customer object.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Name of the customer.",
+          "required": false
+        },
+        {
+          "name": "phone",
+          "type": "String",
+          "info": "E164 formatted phone number of customer.",
+          "required": false
+        },
+        {
+          "name": "email",
+          "type": "String",
+          "info": "Email of the customer.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getSingleCustomer",
+      "description": "Retrieves a customer object with the id.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "customerId",
+          "type": "String",
+          "info": "Valid customer identifier.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "updateCustomer",
+      "description": "Edit an existing customer object.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Name of the customer.",
+          "required": false
+        },
+        {
+          "name": "phone",
+          "type": "String",
+          "info": "E164 formatted phone number of customer.",
+          "required": false
+        },
+        {
+          "name": "email",
+          "type": "String",
+          "info": "Email of the customer.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteCustomer",
+      "description": "Delete an existing customer object.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "customerId",
+          "type": "String",
+          "info": "Valid customer identifier.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getCustomers",
+      "description": "List all customer objects. The list can be filtered using the following parameters.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "pageSize",
+          "type": "Number",
+          "info": "Maximum number of objects to return, default is 50.",
+          "required": false
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Filter customers with names that contain this string.",
+          "required": false
+        },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "Filter customers with a comma separated list of ids.",
+          "required": false
+        },
+        {
+          "name": "neighborhoodId",
+          "type": "String",
+          "info": "Filter customer objects by neighborhood.",
+          "required": false
+        },
+        {
+          "name": "minDate",
+          "type": "String",
+          "info": "Filter objects by minimum created at date.",
+          "required": false
+        },
+        {
+          "name": "maxDate",
+          "type": "String",
+          "info": "Filter objects by maximum created at date.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createFleet",
+      "description": "Creates a new fleet object.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Name of the fleet.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getSingleFleet",
+      "description": "Retrieves a fleet object with the id.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "fleetId",
+          "type": "String",
+          "info": "Valid fleet identifier.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "updateFleet",
+      "description": "Edit an existing fleet object.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "fleetId",
+          "type": "String",
+          "info": "Valid fleet identifier.",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Name of the fleet.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteFleet",
+      "description": "Delete an existing fleet object.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "fleetId",
+          "type": "String",
+          "info": "Valid fleet identifier.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getFleets",
+      "description": "List all fleet objects. The list can be filtered using the following parameters.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "pageSize",
+          "type": "Number",
+          "info": "Maximum number of objects to return, default is 50.",
+          "required": false
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "Filter fleets with names that contain this string.",
+          "required": false
+        },
+        {
+          "name": "minDate",
+          "type": "String",
+          "info": "Filter objects by minimum created at date.",
+          "required": false
+        },
+        {
+          "name": "maxDate",
+          "type": "String",
+          "info": "Filter objects by maximum created at date.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getSingleNeighborhood",
+      "description": "Retrieves a neighborhood object with the id.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "neighborhoodId",
+          "type": "String",
+          "info": "Valid neighborhood identifier.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getNeighborhoods",
+      "description": "List all neighborhood objects.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getSingleEvent",
+      "description": "This API retrieves the details of an event. Supply the unique identifier of the event, which you might have received in a webhook. All events share a common structure, detailed below. The only property that will differ is the data property. In each case, the data dictionary will have an attribute called object and its value will be the same as retrieving the same object directly from the API. For example, a order.created event will have the same information as retrieving the relevant order would.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "eventId",
+          "type": "String",
+          "info": "Valid event identifier.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getEvents",
+      "description": "Retrieve list of all events.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createGPSLog",
+      "description": "Creates a new gpslog object.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "driverId",
+          "type": "String",
+          "info": "The driver id to which this location belongs.",
+          "required": true
+        },
+        {
+          "name": "locationLatitude",
+          "type": "String",
+          "info": "The location recorded latitude.",
+          "required": true
+        },
+        {
+          "name": "locationLongitude",
+          "type": "String",
+          "info": "The location recorded longitude.",
+          "required": true
+        },
+        {
+          "name": "recordedAt",
+          "type": "String",
+          "info": "The timestamp at which the location was recorded.",
+          "required": true
+        },
+        {
+          "name": "locationAccuracy",
+          "type": "String",
+          "info": "The location accuracy of the location in meters.",
+          "required": false
+        },
+        {
+          "name": "speed",
+          "type": "String",
+          "info": "The speed in meters/speed.",
+          "required": false
+        },
+        {
+          "name": "bearing",
+          "type": "String",
+          "info": "The bearing in degrees from the N-S axis.",
+          "required": false
+        },
+        {
+          "name": "altitude",
+          "type": "String",
+          "info": "The altitude above sea level in meters.",
+          "required": false
+        },
+        {
+          "name": "activities",
+          "type": "String",
+          "info": "List of activities recorded with the location. Possible activities are stationary, walking, running, automotive, cycling or unknown.",
+          "required": false
+        },
+        {
+          "name": "activityConfidence",
+          "type": "Number",
+          "info": "Confidence level of the recorded activities, between 0 to 100.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "createBulkGPSLogs",
+      "description": "Create multiple GPS logs, by sending a list of GPS Log objects.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "gpsLogObjectsList",
+          "type": "JSON",
+          "info": "Array of JSON objects, list of GPS Log objects.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getSingleGPSLog",
+      "description": "Retrieves a GPS Log object with the id.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "gpsLogObjectId",
+          "type": "String",
+          "info": "Valid GPS log object identifier.",
+          "required": true
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "getFilteredGPSLogs",
+      "description": "GPS Log data from the device is filtered to remove noise and improve accuracy. This filtered list can be retrieve with this API. You can also specify parameters to query GPS Log objects of a particular driver or time period.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "pageSize",
+          "type": "Number",
+          "info": "Maximum number of objects to return, default is 50.",
+          "required": false
+        },
+        {
+          "name": "driverId",
+          "type": "String",
+          "info": "Filter GPS Log objects by driver.",
+          "required": false
+        },
+        {
+          "name": "minRecordedAt",
+          "type": "String",
+          "info": "Filter objects by minimum device timestamp.",
+          "required": false
+        },
+        {
+          "name": "maxRecordedAt",
+          "type": "String",
+          "info": "Filter objects by maximum device timestamp.",
+          "required": false
+        },
+        {
+          "name": "minDate",
+          "type": "String",
+          "info": "Filter objects by minimum created at date.",
+          "required": false
+        },
+        {
+          "name": "maxDate",
+          "type": "String",
+          "info": "Filter objects by maximum created at date.",
+          "required": false
+        }
+      ],
+      "callbacks": [
+        {
+          "name": "error",
+          "info": "Error"
+        },
+        {
+          "name": "success",
+          "info": "Success"
+        }
+      ]
+    },
+    {
+      "name": "deleteGPSLog",
+      "description": "Delete an existing GPS Log object.",
+      "args": [
+        {
+          "name": "apiKey",
+          "type": "credentials",
+          "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "gpsLogObjectId",
+          "type": "String",
+          "info": "Valid GPS Log object identifier.",
           "required": true
         }
       ],
