@@ -267,6 +267,12 @@
           "required": true
         },
         {
+          "name": "driverId",
+          "type": "String",
+          "info": "Valid driver identifier.",
+          "required": true
+        },
+        {
           "name": "minDate",
           "type": "String",
           "info": "Minimum date as ISO datetime string to get statistics for a driver.",
@@ -1399,6 +1405,12 @@
           "required": true
         },
         {
+          "name": "destinationId",
+          "type": "String",
+          "info": "Valid destination identifier.",
+          "required": true
+        },
+        {
           "name": "customerId",
           "type": "String",
           "info": "The id of the customer to which this destination belongs.",
@@ -1614,6 +1626,12 @@
           "name": "apiKey",
           "type": "credentials",
           "info": "API key.",
+          "required": true
+        },
+        {
+          "name": "customerId",
+          "type": "String",
+          "info": "Valid customer identifier.",
           "required": true
         },
         {
