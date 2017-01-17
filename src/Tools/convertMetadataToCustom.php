@@ -54,8 +54,6 @@ if(is_dir($argv[2])){
 
 $baseApi = (isset($argv[3]) && strlen($argv[3])>0)?$argv[3]:'';
 $custom = [];
-$custom['root']['vendorUrl'] = $baseApi;
-$custom['root']['method'] = 'GET';
 foreach($array['blocks'] as $block){
     foreach($block['args'] as $arg) {
         $custom[$block['name']]['dictionary'][$arg['name']] = $arg['name'];

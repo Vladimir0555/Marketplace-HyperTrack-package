@@ -1,9 +1,5 @@
 <?php
 return array (
-    'root' => array (
-        'vendorUrl' => 'https://app.hypertrack.io/api/v1/',
-        'method' => 'GET',
-    ),
     'createDriver' => array (
         'dictionary' => array (
             'apiKey' => 'apiKey',
