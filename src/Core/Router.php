@@ -24,24 +24,43 @@ class Router
         $this->blocks = $blocks;
         $this->custom = $custom;
         $this->klein = new \Klein\Klein();
-        $this->http = new \GuzzleHttp\Client();
+        $this->http = new \GuzzleHttp\Client(['verify' => false]);
     }
 
-    public function run()
+    public function setup()
     {
         // Metatdata
         // api/<Package_name>/
         $this->klein->respond('GET', INDEX_PATH . 'api/' . $this->packageName . '/?', function(){
             include_once dirname(__DIR__) . '/metadata/metadata.json';
         });
+        // Set all routes
         foreach($this->blocks as $blockSettings){
             $this->setRoute($blockSettings);
         }
-        $this->klein->dispatch();
+    }
+
+    public function run($dispatchSettings = [])
+    {
+        // Run router
+        if(count($dispatchSettings)>0){
+            $this->klein->dispatch($dispatchSettings);
+        }else{
+            $this->klein->dispatch();
+        }
+        // Set status 200
+        $this->klein->response()->unlock();
+        $this->klein->response()->code(200);
+    }
+
+    public function getRouter()
+    {
+        return $this->klein;
     }
 
     private function setRoute($block)
     {
+        // Get method for vendor route
         $method = 'POST';
         if(
             isset($this->custom[$block['name']]['method'])&&
@@ -49,36 +68,47 @@ class Router
         ){
             $method = $this->custom[$block['name']]['method'];
         }else{
-            throw new Exception('Wrong metadata.php format custom block method is miss');
+            $result['callback'] = 'error';
+            $result['contextWrites']['to']['status_code'] = 'INTERNAL_PACKAGE_ERROR';
+            $result['contextWrites']['to']['status_msg'] = 'Wrong metadata format custom block method is miss.';
             exit();
         }
+        // Prepare vars need for route processing
         $param = $this->getParam($block);
         $routePath = INDEX_PATH . 'api/' . $this->packageName . '/' . $block['name'] . '/?';
         $blockName = $block['name'];
         $blockCustom = $this->custom[$block['name']];
 
-        $this->klein->respond($method, $routePath, function()use($param, $blockName, $blockCustom, $method){
+        // Add route
+        $this->klein->respond('POST', $routePath, function()use($param, $blockName, $blockCustom, $method){
+            // Get input param
             $inputPram = $this->getInputPram($param['param']);
             if(is_string($inputPram)){
                 echo $inputPram;
                 exit(200);
             }
+            
+            // Validate param as reqiured and/or json
             $validateResult = $this->validateParam($inputPram, $param['required'], $param['json']);
             if($validateResult){
                 echo $validateResult;
                 exit(200);
             }
 
+            // Prepare param
             $sendParam = $this->prepareParam($inputPram, $blockCustom['dictionary']);
+            // remove apiKey from param list, for sent as header
             $apiKey = $sendParam['apiKey'];
             unset($sendParam['apiKey']);
             $sendBody = $sendParam;
+            // If need, custom make custom processing for route
             if(isset($blockCustom['custom'])){
                 $sendBody = CustomModel::$blockName($sendParam);
             }else{
                 $sendBody = json_encode($sendBody);
             }
 
+            // Put param in Vendor Url if it need
             $vendorUrl = $blockCustom['vendorUrl'];
             $urlPart = [];
             preg_match('/\{\{[a-z]+\}\}/ui', $vendorUrl, $urlPart);
@@ -106,6 +136,7 @@ class Router
         return true;
     }
 
+    // Get param, required and JSON from url
     private function getParam($block)
     {
         $param = [];
@@ -215,15 +246,26 @@ class Router
 
     protected function httpRequest($url, $method, $apiKey, $sendBody)
     {
+        if($sendBody == '[]' || $sendBody == '{}'){
+            $sendBody = '';
+        }
+        
         $result = [];
         try {
-            $vendorResponse = $this->http->request($method, $url, [
+            // Setup client
+            $clientSetup = [
                 'headers' => [
                     'Authorization' => 'token ' . $apiKey,
                     'Content-Type' => 'application/json',
-                ],
-                'body' => $sendBody
-            ]);
+                ] ];
+
+            if($method == 'GET'){
+                $clientSetup['query'] = json_decode($sendBody, true);
+            }else{
+                $clientSetup['body'] = $sendBody;
+            }
+            
+            $vendorResponse = $this->http->request($method, $url, $clientSetup);
             $responseBody = $vendorResponse->getBody()->getContents();
 
             $result['callback'] = 'success';

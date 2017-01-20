@@ -10,7 +10,7 @@
   "accounts": {
     "domain": "hypertrack.io",
     "credentials": [
-      "APIkey"
+      "apiKey"
     ]
   },
   "blocks": [
@@ -166,7 +166,7 @@
     },
     {
       "name": "deleteDriver",
-      "description": "Delete an existing customer object.",
+      "description": "Delete an existing driver object.",
       "args": [
         {
           "name": "apiKey",
@@ -2108,7 +2108,7 @@
         },
         {
           "name": "gpsLogObjectsList",
-          "type": "JSON",
+          "type": "Array",
           "info": "Array of JSON objects, list of GPS Log objects.",
           "required": true
         }

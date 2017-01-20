@@ -16,7 +16,7 @@ return array (
     'domain' => 'hypertrack.io',
     'credentials' => 
     array (
-      0 => 'APIkey',
+      0 => 'apiKey',
     ),
   ),
   'blocks' => 
@@ -206,7 +206,7 @@ return array (
     3 => 
     array (
       'name' => 'deleteDriver',
-      'description' => 'Delete an existing customer object.',
+      'description' => 'Delete an existing driver object.',
       'args' => 
       array (
         0 => 
@@ -2585,7 +2585,7 @@ return array (
         1 => 
         array (
           'name' => 'gpsLogObjectsList',
-          'type' => 'JSON',
+          'type' => 'Array',
           'info' => 'Array of JSON objects, list of GPS Log objects.',
           'required' => true,
         ),
@@ -2747,11 +2747,6 @@ return array (
   ),
   'custom' => 
   array (
-    'root' => 
-    array (
-      'vendorUrl' => 'https://app.hypertrack.io/api/v1/',
-      'method' => 'GET',
-    ),
     'createDriver' => 
     array (
       'dictionary' => 
@@ -3384,7 +3379,8 @@ return array (
         'gpsLogObjectsList' => 'gpsLogObjectsList',
       ),
       'vendorUrl' => 'https://app.hypertrack.io/api/v1/gps/bulk/',
-      'method' => 'POST'
+      'method' => 'POST',
+      'custom' => true,
     ),
     'getSingleGPSLog' => 
     array (

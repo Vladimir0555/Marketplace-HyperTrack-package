@@ -3,7 +3,7 @@ require dirname(__DIR__) . '/vendor/autoload.php';
 
 use Core\Router;
 
-//header('Content-type: application/json');
+header('Content-type: application/json');
 http_response_code (200);
 define('RAPID_IN', TRUE);
 
@@ -27,18 +27,7 @@ if(
     throw new Exception('Wrong metadata.php format \'package\', \'blocks\' or \'customBlocksHandlers\' in root is miss');
 }
 $router = new Router($settings['package'], $settings['blocks'], $settings['custom']);
+$router->setup();
 $router->run();
-/*
-$klein = new \Klein\Klein();
-
-
-
-
-// Init Blocks path
-/*$klein = include_once  dirname(APP_PATH) . '/src/Core/routes.php';
-$klein->dispatch();
 http_response_code(200);
-$klein->response()->unlock();
-$klein->response()->code(200);
 exit(200);
-*/
